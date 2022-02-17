@@ -168,10 +168,27 @@ def get_leetcode(username):
     }
     r = requests.get(url, json={'query': queryString, 'variables': variables})
     json_data = r.json()
-    rankings = max([d['rating']
-                    for d in json_data['data']['userContestRankingHistory']])
-    rankings = int(rankings)
-    return [rankings, '#FFA116']
+    rankings = json_data['data']['userContestRankingHistory'][-1]['rating']
+    y = round(rankings)
+
+    if (y <= 1199):
+        col = '#cec8c1'
+    elif (y > 1199 and y <= 1399):
+        col = '#43A217'
+    elif (y > 1399 and y <= 1599):
+        col = "#22C4AE"
+    elif (y > 1599 and y <= 1899):
+        col = "#1427B2"
+    elif (y > 1899 and y <= 2099):
+        col = "#700CB0"
+    elif (y > 2099 and y <= 2299):
+        col = "#F9A908"
+    elif (y > 2299 and y <= 2399):
+        col = "#FBB948"
+    else:
+        col = "#FF0000"
+
+    return [y, col]
 
 
 def get_leetcode_cn(username):
